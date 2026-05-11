@@ -10,6 +10,8 @@ defmodule AgendaCli.Contacts do
     end
   end
 
+  @spec edit(any(), any(), any()) ::
+          {:error, :empty_phone | :invalid_email | :invalid_id | :not_found} | {:ok, list()}
   def edit(contacts, id, attrs) when is_integer(id) do
     with :ok <- validate_optional_fields(attrs),
          {:ok, contact} <- show(contacts, id) do

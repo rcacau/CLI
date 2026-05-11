@@ -1,34 +1,34 @@
-# Agenda CLI
+﻿# Agenda CLI
 
-Aplica??o de linha de comando (CLI) em Elixir para gerenciamento de contatos pessoais.
+Aplicação de linha de comando (CLI) em Elixir para gerenciamento de contatos pessoais.
 
-O projeto foi desenvolvido com foco em Programa??o Funcional, usando composi??o de fun??es, recurs?o no loop interativo, pattern matching no dispatch de comandos e persist?ncia local em JSON.
+O projeto foi desenvolvido com foco em Programação Funcional, usando composição de funções, recursão no loop interativo, pattern matching no dispatch de comandos e persistência local em JSON.
 
 ## Objetivo
 
-Permitir o cadastro, consulta, edi??o, remo??o e busca de contatos diretamente no terminal, com dados persistidos no arquivo `contacts.json`.
+Permitir o cadastro, consulta, edição, remoção e busca de contatos diretamente no terminal, com dados persistidos no arquivo `contacts.json`.
 
 ## Tecnologias e requisitos
 
 - Elixir
 - Mix
-- Jason (serializa??o JSON)
+- Jason (serialização JSON)
 
 ## Como executar
 
-1. Instalar depend?ncias:
+1. Instalar dependências:
 
 ```bash
 mix deps.get
 ```
 
-2. Iniciar a aplica??o:
+2. Iniciar a aplicação:
 
 ```bash
 mix run -e "AgendaCli.main([])"
 ```
 
-Observa??o: este comando inicia o prompt interativo da agenda (`> `) no terminal.
+Observação: este comando inicia o prompt interativo da agenda (`> `) no terminal.
 
 ## Como testar automaticamente
 
@@ -39,20 +39,20 @@ mix test
 ## Estrutura do projeto
 
 - `lib/agenda_cli.ex`
-Respons?vel pelo ponto de entrada da CLI, loop recursivo, parsing manual de comandos e dispatch com pattern matching.
+Responsável pelo ponto de entrada da CLI, loop recursivo, parsing manual de comandos e dispatch com pattern matching.
 
 - `lib/agenda_cli/contacts.ex`
-Cont?m as regras de neg?cio dos contatos: `add`, `edit`, `del`, `show`, `list`, `search`, al?m de valida??es.
+Contém as regras de negócio dos contatos: `add`, `edit`, `del`, `show`, `list`, `search`, além de validações.
 
 - `lib/agenda_cli/store.ex`
-Respons?vel pela persist?ncia JSON: `load/0` e `save/1`, cria??o autom?tica de arquivo e tratamento de JSON inv?lido/vazio.
+Responsável pela persistência JSON: `load/0` e `save/1`, criação automática de arquivo e tratamento de JSON inválido/vazio.
 
 - `lib/agenda_cli/application.ex`
-Configura inicializa??o da aplica??o via Mix.
+Configura inicialização da aplicação via Mix.
 
 ## Modelo de contato
 
-Cada contato ? salvo no formato:
+Cada contato é salvo no formato:
 
 ```elixir
 %{
@@ -72,9 +72,9 @@ Campos:
 - `phone` (string)
 - `email` (string)
 
-## Comandos dispon?veis
+## Comandos disponíveis
 
-Todos os comandos abaixo devem ser digitados dentro do prompt da aplica??o (`> `).
+Todos os comandos abaixo devem ser digitados dentro do prompt da aplicação (`> `).
 
 ### 1. `add`
 
@@ -89,7 +89,7 @@ Regras:
 - Gera `id` automaticamente.
 - Exige todos os campos: `--name`, `--company`, `--phone`, `--email`.
 - Valida email.
-- N?o aceita telefone vazio.
+- Não aceita telefone vazio.
 
 ### 2. `edit <id>`
 
@@ -102,8 +102,8 @@ edit 123 --name Ana Silva --company Acme LTDA
 
 Regras:
 
-- Mant?m campos n?o informados.
-- Reaplica valida??o de email/telefone quando esses campos forem enviados.
+- Mantém campos não informados.
+- Reaplica validação de email/telefone quando esses campos forem enviados.
 
 ### 3. `del <id>`
 
@@ -115,7 +115,7 @@ del 123
 
 ### 4. `show <id>`
 
-Exibe um ?nico contato formatado.
+Exibe um único contato formatado.
 
 ```text
 show 123
@@ -150,13 +150,13 @@ Regras:
 
 ### 7. `exit`
 
-Encerra a aplica??o.
+Encerra a aplicação.
 
 ```text
 exit
 ```
 
-## Exemplo de sess?o completa
+## Exemplo de sessão completa
 
 ```text
 > add --name Ana Lima --company Acme Ltda --phone 85912345678 --email ana@email.com
@@ -177,39 +177,39 @@ Telefone: 85912345678
 Email: ana@email.com
 
 > exit
-Ate mais!
+Até mais!
 ```
 
-## Persist?ncia JSON
+## Persistência JSON
 
 Arquivo usado: `contacts.json`.
 
 Comportamento:
 
 - Carrega os contatos ao iniciar (`AgendaCli.Store.load/0`).
-- Salva automaticamente ap?s `add`, `edit` e `del` (`AgendaCli.Store.save/1`).
-- Cria `contacts.json` com `[]` se n?o existir.
-- Se o arquivo estiver vazio/corrompido, a aplica??o n?o quebra: inicia com lista vazia e exibe aviso.
+- Salva automaticamente após `add`, `edit` e `del` (`AgendaCli.Store.save/1`).
+- Cria `contacts.json` com `[]` se não existir.
+- Se o arquivo estiver vazio/corrompido, a aplicação não quebra: inicia com lista vazia e exibe aviso.
 
 ## Tratamento de erros
 
-A aplica??o trata entradas inv?lidas sem crashar, com mensagens amig?veis para:
+A aplicação trata entradas inválidas sem crashar, com mensagens amigáveis para:
 
-- comando inv?lido
-- id inv?lido ou inexistente
-- email inv?lido
+- comando inválido
+- id inválido ou inexistente
+- email inválido
 - telefone vazio
 - flags incorretas
-- par?metros ausentes
+- parâmetros ausentes
 - busca malformada
-- JSON inv?lido
+- JSON inválido
 
-## Conceitos de Programa??o Funcional aplicados
+## Conceitos de Programação Funcional aplicados
 
-- Recurs?o no loop interativo (`loop/1`) em vez de loop imperativo.
-- Pattern matching no dispatch dos comandos (`handle_command/2` em m?ltiplas cl?usulas).
-- Pipe operator (`|>`) para composi??o de processamento e transforma??o de dados.
-- Fun??es pequenas e m?dulos separados por responsabilidade.
+- Recursão no loop interativo (`loop/1`) em vez de loop imperativo.
+- Pattern matching no dispatch dos comandos (`handle_command/2` em múltiplas cláusulas).
+- Pipe operator (`|>`) para composição de processamento e transformação de dados.
+- Funções pequenas e módulos separados por responsabilidade.
 
 ## Arquivos ignorados no Git
 
@@ -219,8 +219,8 @@ No `.gitignore`:
 - `/deps/`
 - `contacts.json`
 
-## Observa??es finais
+## Observações finais
 
-- O projeto foi mantido simples, modular e explic?vel em apresenta??o oral.
-- N?o usa bibliotecas externas de parser CLI.
-- Parsing de comandos feito manualmente com `String.split`, `Enum` e fun??es auxiliares.
+- O projeto foi mantido simples, modular e explicável em apresentação oral.
+- Não usa bibliotecas externas de parser CLI.
+- Parsing de comandos feito manualmente com `String.split`, `Enum` e funções auxiliares.
